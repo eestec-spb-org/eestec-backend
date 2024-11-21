@@ -1,0 +1,5 @@
+fastapi~=0.115.5
+uvicorn~=0.30.6
+pyjwt~=2.4.0
+pydantic~=2.5.3
+sqlalchemy~=2.0.36
