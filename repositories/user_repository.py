@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 from utils.database import UserOrm, async_session
-from schemas.user_schemas import SUserAdd, SUser
+from schemas.user_schemas import SchemaUserAdd, SchemaUser
 
 """
 Репозиторий используется для изменения данных в БД  
@@ -19,7 +19,7 @@ class UserRepository:
        """
 
     @classmethod
-    async def get_user_by_email(cls, email: str) -> SUser:
+    async def get_user_by_email(cls, email: str) -> SchemaUser:
         pass
         # TODO
 
@@ -30,6 +30,6 @@ class UserRepository:
     :exception HTTPException 400 User already exists
     """
     @classmethod
-    async def add_user(cls, user: SUserAdd) -> bool:
+    async def add_user(cls, user: SchemaUserAdd) -> bool:
         pass
         # TODO

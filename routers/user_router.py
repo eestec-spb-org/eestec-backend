@@ -5,7 +5,7 @@ from fastapi import APIRouter, Depends, Form, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 
 from repositories.user_repository import UserRepository
-from schemas.user_schemas import SUserAdd, SUserId, SUserReturn
+from schemas.user_schemas import SchemaUserAdd, SUserId, SUserReturn
 
 import hashlib
 
@@ -45,7 +45,7 @@ async def profile(token: str = Depends(oauth2_scheme)) -> SUserReturn:
 
 
 @router.post("/register")
-async def register(user_init: SUserAdd = Depends()) -> SUserId:
+async def register(user_init: SchemaUserAdd = Depends()) -> SUserId:
     pass
     # TODO
 

@@ -32,7 +32,7 @@ class SUserReturn(BaseModel):
 """
 
 
-class SUserAdd(SUserReturn):
+class SchemaUserAdd(SUserReturn):
     hashed_password: str
 
     model_config = ConfigDict(from_attributes=True)
@@ -44,7 +44,7 @@ class SUserAdd(SUserReturn):
 """
 
 
-class SUser(SUserAdd):
+class SchemaUser(SchemaUserAdd):
     id: int
 
     model_config = ConfigDict(from_attributes=True)

@@ -1,7 +1,7 @@
 from fastapi import Depends
 
 from repositories.user_repository import UserRepository
-from schemas.user_schemas import SUserAdd, SUser
+from schemas.user_schemas import SchemaUserAdd, SchemaUser
 from utils.security import encrypt
 
 """
@@ -13,6 +13,6 @@ from utils.security import encrypt
 """
 
 
-async def add_user(user_init: SUserAdd = Depends()) -> SUser:
+async def add_user(user_init: SchemaUserAdd = Depends()) -> SchemaUser:
     pass
     # TODO
