@@ -9,10 +9,14 @@ from utils.security import encrypt
 """
 
 """
-Добавляет польщователя в БД, возвращает запись из БД о пользователе
+Добавляет пользователя в БД, возвращает запись из БД о пользователе
 """
 
 
 async def add_user(user_init: SchemaUserAdd = Depends()) -> SchemaUser:
-    pass
-    # TODO
+    user_to_add = encrypt(user_init)
+    if await UserRepository.add_user(user_to_add):
+        new_user = await UserRepository.get_user_by_email(user_to_add.email)
+        return new_user
+    else:
+        return None

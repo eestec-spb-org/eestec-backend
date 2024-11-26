@@ -20,8 +20,12 @@ class UserRepository:
 
     @classmethod
     async def get_user_by_email(cls, email: str) -> SchemaUser:
-        pass
-        # TODO
+        async with async_session() as session:
+            query = select(UserOrm).params(email=email).fetch(1)
+            result = await session.execute(query)
+            user_models = result.scalars().all()
+            users = [SchemaUser.model_validate(user_model) for user_model in user_models]
+            return users[0]
 
     """
     Метод используется для добавления пользователя в БД
@@ -31,5 +35,14 @@ class UserRepository:
     """
     @classmethod
     async def add_user(cls, user: SchemaUserAdd) -> bool:
-        pass
-        # TODO
+        try:
+            async with async_session() as session:
+                data = user.model_dump()
+                new_task = UserOrm(**data)
+
+                session.add(new_task)
+                await session.flush()
+                await session.commit()
+                return True
+        except Exception as e:
+            raise HTTPException(status_code=400, detail="User already exists")
