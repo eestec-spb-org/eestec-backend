@@ -2,6 +2,8 @@ import hashlib
 import os
 
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
+from collections.abc import AsyncGenerator
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from models.user_models import UserOrm, Model
 
@@ -36,3 +38,12 @@ async def test_tables():
         session.add(UserOrm(username="User1", email="email", hashed_password=hashed.hexdigest()))
         await session.flush()
         await session.commit()
+
+
+async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
+    """
+    A coroutine that asynchronously yields an AsyncSession object.
+    """
+
+    async with async_session() as session:
+        yield session

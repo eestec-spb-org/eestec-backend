@@ -10,7 +10,7 @@ Pydantic позволяет создавать JSON схемы из моделе
 """
 
 
-class SUserId(BaseModel):
+class UserIdSchema(BaseModel):
     id: int
 
 
@@ -20,9 +20,11 @@ class SUserId(BaseModel):
 """
 
 
-class SUserReturn(BaseModel):
+class UserReturnSchema(BaseModel):
     username: str
     email: str
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 """
@@ -32,7 +34,7 @@ class SUserReturn(BaseModel):
 """
 
 
-class SchemaUserAdd(SUserReturn):
+class SchemaUserAdd(UserReturnSchema):
     hashed_password: str
 
     model_config = ConfigDict(from_attributes=True)
@@ -44,7 +46,7 @@ class SchemaUserAdd(SUserReturn):
 """
 
 
-class SchemaUser(SchemaUserAdd):
+class SchemaUser(SchemaUserAdd):  # Почему пароль в схеме?
     id: int
 
     model_config = ConfigDict(from_attributes=True)
